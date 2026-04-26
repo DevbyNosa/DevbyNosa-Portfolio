@@ -1,0 +1,98 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>About</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>About</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/about" method="POST" class="cms-form" enctype="multipart/form-data">
+        <div class="instruction-hero">
+          <h6>Update About Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+        
+          <span>
+            <label for="title">About title</label>
+            <input type="text" placeholder="Enter about title" name="aboutTitle" value="<%= about.title %>">
+          </span>
+          <span>
+            <label class="cms-label" for="aboutDescription">About Description</label>
+            <textarea id="aboutDescription" name="aboutDescription" placeholder="Enter about description" ><%= about.description %></textarea>
+          </span>
+
+          <span>
+            <label for="stack-type">Stack Type</label>
+
+            <input type="text" placeholder="Enter stack type" name="stackInput" value="<%= about.stack %>">
+
+        
+          </span>
+
+        <div class="about-image-upload">
+          <span>
+         <label for="imageUpload">Image Upload</label>
+         <input type="file" id="imageUpload" name="imageUploadAbout" accept="image/*" class="image-upload-input">
+         </span>
+
+         <span>
+
+         <label for="altImage">Image Alt Text</label>
+         <input type="text" id="altImage" name="aboutAltText" placeholder="Enter image alt text" value="<%= about.image_alt %>">
+         </span>
+         </div>
+
+         <div class="uploaded-image-parent">
+          <ul class="upload-ul">
+            <li>Current Image:</li>
+          </ul>
+          <img class="uploaded-image-preview" src="<%= about.image %>" alt="About Image">
+         </div>
+        
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('.cms-form');
+        if (form) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+              const msgDiv = document.querySelector('.success-message');
+              if (msgDiv) {
+                msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                msgDiv.style.display = 'block';
+                msgDiv.style.opacity = '1';
+              }
+            } else {
+              // handle error
+            }
+          });
+        }
+      });
+    </script>
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

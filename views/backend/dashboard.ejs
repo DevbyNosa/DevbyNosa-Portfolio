@@ -1,0 +1,48 @@
+<%- include("../partials/backend/header.ejs") %>
+
+
+  <%- include("../partials/backend/sidebar.ejs") %>
+   <section class="dashboard-content">
+      <section class="dashboard-top">
+        <h4>Dashboard</h4>
+        <p>Hey <strong><%= adminUsername || 'Admin' %></strong>, your admin panel is all set.</p>
+      </section>
+
+      <section class="quick-cards">
+        <article class="card-child">
+          <h5>Visitors <i class="fa-solid fa-eye"></i></h5>
+          <p class="value views-value"></p>
+          <small>Active now</small>
+        </article>
+        <article class="card-child">
+          <h5>Portfolio <i class="fa-solid fa-blog"></i></h5>
+          <p class="value"><%= project.length %></p>
+         <small>
+           New Acheivement
+        </small>
+
+        </article>
+        <article class="card-child">
+          <h5>Blogs <i class="fa-solid fa-blog"></i></h5>
+          <p class="value"><%= blogLength %></p>
+          <small><%= blogDate.toLocaleDateString('en-US', { month: 'numeric', day: 'numeric', year: '2-digit' }) %></small>
+        </article>
+      </section>
+
+      <section class="widgets-grid">
+        <article class="card">
+          <h4>Monthly Visit Chart</h4>
+          <canvas id="viewChart"></canvas>
+        </article>
+        <article class="info-card">
+          <h4>Recent events</h4>
+          <img src="/images/news-image.avif" alt="News" class="info-image">
+          <ul class="activity-list">
+            <li><span>•</span> New login from <%= city %>, <%= country %> </li>
+            <li><span>•</span> Article published: <%= blogTitle || "No article yet" %></li>
+          </ul>
+        </article>
+      </section>
+
+
+<%- include("../partials/backend/footer.ejs") %>

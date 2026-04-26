@@ -1,0 +1,79 @@
+<%- include("partials/header.ejs") %>
+
+<main class="blog-post-main">
+<section class="blog-post-hero">
+  <div class="blog-post-hero-image">
+    <% if(post.image) { %>
+      <img src="<%= post.image %>" alt="<%= post.image_alt || post.title %>">
+    <% } %>
+  </div>
+  <div class="blog-post-hero-content">
+    
+    
+    <h1 class="blog-post-title"><%= post.title %></h1>
+    <p class="blog-post-excerpt excerpt-p" id="excerpt-text"><%= post.excerpt %></p>
+    <div class="blog-post-meta">
+      <div class="author-info">
+        <div class="author-avatar">
+          <img src="/images/logo.png" alt="DevByNosa">
+        </div>
+        <div class="author-details">
+          <span class="author-name">DevByNosa</span>
+          <span class="post-date">
+            <%= new Date(post.published_at).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            }) %>
+          </span>
+        </div>
+      </div>
+      <div class="post-stats">
+        <span class="reading-time">5 min read</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="blog-post-content-section">
+  <div class="container">
+    <div class="blog-post-content-wrapper">
+      <article class="blog-post-content">
+        <%- post.content %>
+      </article>
+
+      <aside class="blog-post-sidebar">
+        <div class="sidebar-widget">
+          <h3>About the Author</h3>
+          <div class="author-bio">
+            <img src="/images/logo.png" alt="DevByNosa" class="author-bio-avatar">
+            <h4>DevByNosa</h4>
+            <p>Full-stack developer passionate about creating efficient, scalable web applications and sharing knowledge with the developer community.</p>
+          </div>
+        </div>
+
+        <div class="sidebar-widget">
+          <h3>Latest Posts</h3>
+          <div class="recent-posts">
+         
+            <p>More articles coming soon...</p>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <div class="blog-post-navigation">
+      <a href="/blog" class="btn btn-secondary">
+        <i class="fa-solid fa-arrow-left"></i>
+        Back to Blog
+      </a>
+      <a href="#top" class="btn btn-outline">
+        <i class="fa-solid fa-arrow-up"></i>
+        Back to Top
+      </a>
+    </div>
+  </div>
+</section>
+</main>
+
+<%- include("partials/footer.ejs") %>

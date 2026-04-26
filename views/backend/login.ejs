@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/admin.css">
+  <title>Admin | Login</title>
+</head>
+<body>
+ <div class="login-container">
+  <form action="<%= adminPrefix %>" method="POST" class="login-form">
+    <h3 style="text-align: center; margin-bottom: 2rem;">Admin Login</h3>
+    
+    <div class="input-group">
+      <input type="text" id="username" name="username" placeholder=" " required>
+      <label for="username" class="label-inside">Username</label>
+    </div>
+
+    <div class="input-group">
+      <input type="password" name="password" id="password" placeholder=" " required>
+      <label for="password" class="label-inside">Password</label>
+    </div>
+
+    <button type="submit">Login</button>
+
+<% if (locals.error) { %>
+  <div class="error-banner">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10"></circle>
+      <line x1="12" y1="8" x2="12" y2="12"></line>
+      <line x1="12" y1="16" x2="12.01" y2="16"></line>
+    </svg>
+    <span><%= error %></span>
+  </div>
+<% } %>
+  </form>
+
+ 
+
+</div>
+
+<script src="/js/admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Hero</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Hero</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/header" method="POST" class="cms-form">
+        <div class="instruction-hero">
+          <h6>Update Hero Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label class="cms-label" for="heroSubtitle">Hero Subtitle</label>
+            <input type="text" id="heroSubtitle" name="heroSubtitle" placeholder="Enter hero subtitle" value="<%= header.hero_subtitle || '' %>" >
+          </span>
+          <span>
+            <label class="cms-label" for="heroTitle">Hero Title</label>
+            <input type="text" id="heroTitle" name="heroTitle" placeholder="Enter hero title" value="<%= header.hero_title || '' %>" >
+          </span>
+
+          <span>
+            <label class="cms-label" for="heroDescription">Hero Description</label>
+            <textarea id="heroDescription" name="heroDescription" placeholder="Enter hero description" ><%= header.hero_description || '' %></textarea>
+          </span>
+
+          <div class="hero-buttons-link">
+          <span>
+            <label class="cms-label" for="heroButtonText">Hero Button Text</label>
+            <input type="text" id="heroButtonText" name="heroButtonText" placeholder="Enter hero button text" value="<%= header.hero_button_text %>" >
+          </span>
+          
+          <span>
+            <label class="cms-label" for="heroButtonLink">Hero Button Link</label>
+            <input type="text" id="heroButtonLink" name="heroButtonLink" placeholder="Enter hero button link" value="<%= header.hero_button_link %>">
+          </span>
+          </div>
+
+          <div class="hero-buttons-link">
+           <span>
+            <label class="cms-label" for="contactButtonText">Contact Button Text</label>
+            <input type="text" id="contactButtonText" name="contactButtonText" placeholder="Enter contact button text" value="<%= header.contact_button_text %>" >
+          </span>
+          <span>
+            <label class="cms-label" for="contactButtonLink">Contact Button Link</label>
+            <input type="text" id="contactButtonLink" name="contactButtonLink" placeholder="Enter contact button link" value="<%= header.contact_button_link %>">
+          </span>
+          </div>
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+   
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

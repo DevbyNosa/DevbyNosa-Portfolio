@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevbyNosa || Admin Panel</title>
+  <link rel="icon" type="image/png" href="/images/logo.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+  <link rel="stylesheet" href="/css/queries.css">
+  <link rel="stylesheet" href="/css/index.css">
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+  <header class="admin-topbar">
+    <div class="topbar-brand">
+      <a href="/" class="logo-link"><img src="/images/logo.png" alt="logo" class="logo" /></a>
+    </div>
+    <button class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="topbar-nav">
+      <a href="/<%= adminLink %>/dashboard" class="topbar-item">Dashboard</a>
+      <a href="/<%= adminLink %>/posts" class="topbar-item">Posts</a>
+      <a href="/<%= adminLink %>/users" class="topbar-item">Users</a>
+      <a href="/<%= adminLink %>/settings" class="topbar-item">Settings</a>
+    </nav>
+    <div class="topbar-profile">
+      <span>Welcome, <strong><%= adminUsername || 'Admin' %></strong></span>
+      
+      <form action="/<%= adminLink %>/logout" method="POST">
+        <button class="btn secondary-btn">Logout</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="admin-dashboard-container">

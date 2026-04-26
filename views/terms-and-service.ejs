@@ -1,0 +1,118 @@
+<%- include('./partials/header.ejs') %>
+
+<style>
+    .terms-container {
+        max-width: 800px;
+        margin: 100px auto 60px;
+        padding: 0 20px;
+    }
+    
+    .terms-card {
+        background: white;
+        border-radius: 12px;
+        padding: 40px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .terms-card h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+        color: #0f172a;
+    }
+    
+    .terms-card .date {
+        color: #64748b;
+        font-size: 0.85rem;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .terms-card h2 {
+        font-size: 1.25rem;
+        color: #0f172a;
+        margin: 24px 0 12px 0;
+    }
+    
+    .terms-card p {
+        color: #334155;
+        line-height: 1.6;
+        margin-bottom: 12px;
+    }
+    
+    .terms-card ul {
+        color: #334155;
+        padding-left: 20px;
+        margin-bottom: 16px;
+    }
+    
+    .terms-card li {
+        margin-bottom: 6px;
+        line-height: 1.5;
+    }
+    
+    .contact-box {
+        background: #f8fafc;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        margin: 30px 0 20px;
+        border: 1px solid #e2e8f0;
+    }
+    
+    .contact-box a {
+        color: #3b82f6;
+        text-decoration: none;
+    }
+    
+    .contact-box a:hover {
+        text-decoration: underline;
+    }
+    
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        color: #64748b;
+        text-decoration: none;
+    }
+    
+    .back-link:hover {
+        color: #0f172a;
+    }
+    
+    @media (max-width: 640px) {
+        .terms-card {
+            padding: 24px;
+        }
+        .terms-card h1 {
+            font-size: 1.5rem;
+        }
+    }
+</style>
+
+<div class="terms-container">
+    <div class="terms-card">
+        <h1>Terms of Service</h1>
+        <div class="date">Last updated: April 21, 2026</div>
+        
+        <h2>Services</h2>
+        <p>I provide web development services. Quotes provided after consultation.</p>
+        
+        <h2>Payment</h2>
+        <p>50% deposit upfront, 50% upon completion.</p>
+        
+        <h2>Refunds</h2>
+        <p>Deposit non-refundable after work starts. Full refund if not started.</p>
+        
+        <h2>Ownership</h2>
+        <p>After full payment, the code belongs to you.</p>
+        
+        <div class="contact-box">
+            <p>📧 Questions? <a href="mailto:nosa@devbynosa.com">nosa@devbynosa.com</a></p>
+        </div>
+        
+        <a href="/" class="back-link">← Back to Home</a>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

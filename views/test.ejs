@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <!-- views/test.ejs -->
+<h1>Password Hasher</h1>
+
+<form action="/test" method="POST">
+    <button type="submit">Hash Password</button>
+   
+</form>
+
+<% if (hashedPassword) { %>
+    <p>Result: <%= hashedPassword %></p>
+<% } %>
+
+
+
+</body>
+</html>

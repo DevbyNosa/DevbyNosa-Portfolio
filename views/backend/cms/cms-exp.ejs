@@ -1,0 +1,60 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Experience</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Experience</p>
+      </div>
+
+      <div class="project-plus-parent">
+        <span>
+          Total Experiences: <%= experiences.length %>
+        </span>
+        <a href="/<%= adminLink %>/cms/new/experience" class="btn add-btn">Add New Experience</a>
+      </div>
+    </div>
+
+    <!--Table section-->
+    <div class="table-container">
+      <div class="table-id">
+        <h6>No</h6>
+        <h6>Role</h6>
+        <h6>Company</h6>
+        <h6>Start Date</h6>
+        <h6>End Date</h6>
+        <h6>Action</h6>
+      </div>
+
+      <% if(!experiences || experiences.length === 0) { %>
+        <p>No Experience Currently</p>
+      <% } else { %>
+        <% experiences.forEach(items => { %>
+          <div class="table-child">
+            <span id="number"><%= items.id %></span>
+            <span id="role"><%= items.role %></span>
+            <span id="company"><%= items.company %></span>
+            <span><%= items.start_date ? new Date(items.start_date).toLocaleDateString() : '' %></span>
+            <span><%= items.end_date ? new Date(items.end_date).toLocaleDateString() : 'Present' %></span>
+            <span class="action-btn">
+              <a class="btn edit-btn" href="/<%= adminLink %>/cms/experience/<%= items.id %>" id="edit-action">Edit</a>
+              <form action="/<%= adminLink %>/cms/experience/delete/<%= items.id %>" method="POST">
+                <button type="submit" class="btn delete-btn">Delete</button>
+              </form>
+            </span>
+          </div>
+        <% }) %>
+      <% } %>
+
+      <%- include("../../partials/backend/success-msg.ejs") %>
+    </div>
+
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

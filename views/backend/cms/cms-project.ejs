@@ -1,0 +1,126 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Hero</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Projects</p>
+      </div>
+
+
+      <form action="/<%= adminLink %>/cms/project" method="POST" class="cms-form" data-redirect="/<%= adminLink %>/cms/project">
+        <div class="instruction-hero">
+          <h6>Update 
+            Project Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label class="cms-label" for="projectTitle">Project title</label>
+            <input type="text" id="projectTitle" name="projectTitle" placeholder="Enter project title" value="<%= header.title %>" >
+          </span>
+
+        
+      
+
+          <span>
+            <label class="cms-label" for="projectDescription">Project Description</label>
+            <input type="text" id="projectDescription" name="projectDescription" placeholder="Enter project description" value="<%= header.text_paragraph %>" >
+          </span>
+
+     
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('.cms-form');
+        if (form) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+              const msgDiv = document.querySelector('.success-message');
+              if (msgDiv) {
+                msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                msgDiv.style.display = 'block';
+                msgDiv.style.opacity = '1';
+              }
+              const redirect = form.dataset.redirect;
+              if (redirect) {
+                window.location.href = redirect;
+              }
+            } else {
+              // handle error
+            }
+          });
+        }
+      });
+    </script>
+
+     <div class="project-plus-parent">
+      <span>
+        Total Project: 15
+      </span>
+      <a href="/<%= adminLink %>/cms/new/project" class="btn add-btn">Add New Project</a>
+      </div>
+
+       <!--Table section-->
+
+    <div class="table-container">
+     
+     
+      <div class="table-id">
+        <h6>No</h6>
+        <h6>Title</h6>
+        <h6>Action</h6>
+        <h6>Url</h6>
+      </div>
+
+      <% if(!projects || projects. length === 0) { %>
+        <p>No Project Currently</p>
+     <% } else { %>
+
+<% projects.forEach(items => { %>
+       <div class="table-child">
+      <span id="number"><%= items.id %></span>
+      <span id="title"><%= items.project_name %></span>
+      <span class="action-btn">
+      <a class="btn edit-btn" href="/<%= adminLink %>/cms/project/<%= items.id %>" id="edit-action" >Edit</a>
+   
+      <form action="/<%= adminLink %>/cms/project/delete/<%= items.id %>" method="POST">
+      <button type="submit" class="btn delete-btn">Delete</button>
+      </form>
+
+      </span>
+      <span><%= items.project_url %></span>
+      </div>
+      <% }) %>
+      <% } %>
+      
+
+         <%- include("../../partials/backend/success-msg.ejs") %>
+    </div>
+
+
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

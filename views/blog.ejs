@@ -1,0 +1,86 @@
+<%- include("partials/header.ejs") %>
+
+<main class="blog-listing-main">
+<section class="blog-listing-hero">
+  <div class="container">
+    <h1 class="blog-listing-title">My Blog</h1>
+    <p class="blog-listing-subtitle">Thoughts, insights, and updates from my journey as a developer</p>
+    <div class="blog-stats">
+      <span class="stat">
+        <strong><%= posts ? posts.length : 0 %></strong> Articles
+      </span>
+      <span class="stat-separator">•</span>
+      <span class="stat">Web Development & Tech</span>
+    </div>
+  </div>
+</section>
+
+<section class="blog-listing-section">
+  <div class="container">
+    <% if(!posts || posts.length === 0) { %>
+      <div class="no-posts-message">
+        <div class="no-posts-icon">
+          <i class="fa-solid fa-pen-nib"></i>
+        </div>
+        <h2>No blog posts yet</h2>
+        <p>I'm working on creating valuable content for the developer community. Check back soon for new articles and insights!</p>
+        <a href="/" class="btn btn-primary">Back to Homepage</a>
+      </div>
+    <% } else { %>
+      <div class="blog-posts-grid">
+        <% posts.forEach(post => { %>
+          <article class="blog-post-card">
+            <% if(post.image) { %>
+              <div class="blog-post-image">
+                <img src="<%= post.image %>" alt="<%= post.image_alt || post.title %>">
+                <div class="blog-post-category">
+                  <span>Article</span>
+                </div>
+              </div>
+            <% } %>
+            <div class="blog-post-content">
+              <h2 class="blog-post-title">
+                <a href="/blog/<%= post.slug %>"><%= post.title %></a>
+              </h2>
+              <p class="blog-post-excerpt"><%= post.excerpt %></p>
+              <a href="/blog/<%= post.slug %>" class="blog-read-more">Read More</a>
+              <div class="blog-post-meta">
+                <div class="post-author">
+                  <img src="/images/logo.png" alt="DevByNosa" class="author-mini-avatar">
+                  <span>DevByNosa</span>
+                </div>
+                <div class="post-info">
+                  <span class="post-date">
+                    <%= new Date(post.published_at).toLocaleDateString('en-US', {
+                      year: 'numeric',
+                      month: 'short',
+                      day: 'numeric'
+                    }) %>
+                  </span>
+                  <span class="post-read-time">5 min read</span>
+                </div>
+              </div>
+            </div>
+          </article>
+        <% }) %>
+      </div>
+
+      <% if(posts && posts.length > 6) { %>
+        <div class="pagination">
+          <button class="btn btn-outline pagination-btn" disabled>
+            <i class="fa-solid fa-chevron-left"></i>
+            Previous
+          </button>
+          <span class="pagination-info">Page 1 of 1</span>
+          <button class="btn btn-outline pagination-btn" disabled>
+            Next
+            <i class="fa-solid fa-chevron-right"></i>
+          </button>
+        </div>
+      <% } %>
+    <% } %>
+  </div>
+</section>
+</main>
+
+<%- include("partials/footer.ejs") %>

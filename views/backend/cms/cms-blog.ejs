@@ -1,0 +1,58 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Blog Posts</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Blog</p>
+      </div>
+
+      <div class="project-plus-parent">
+        <span>
+          Total Posts: <%= posts.length %>
+        </span>
+        <a href="/<%= adminLink %>/cms/new/blog" class="btn add-btn">Add New Post</a>
+      </div>
+    </div>
+
+    <!--Table section-->
+    <div class="table-container">
+      <div class="table-id">
+        <h6>ID</h6>
+        <h6>Title</h6>
+        <h6>Status</h6>
+        <h6>Published At</h6>
+        <h6>Action</h6>
+      </div>
+
+      <% if(!posts || posts.length === 0) { %>
+        <p>No Blog Posts Currently</p>
+      <% } else { %>
+        <% posts.forEach(post => { %>
+          <div class="table-child">
+            <span id="number"><%= post.id %></span>
+            <span id="title"><%= post.title %></span>
+            <span><%= post.published ? 'Published' : 'Draft' %></span>
+            <span><%= post.published_at ? new Date(post.published_at).toLocaleDateString() : 'Not published' %></span>
+            <span class="action-btn">
+              <a class="btn edit-btn" href="/<%= adminLink %>/cms/blog/<%= post.id %>" id="edit-action">Edit</a>
+              <form action="/<%= adminLink %>/cms/blog/delete/<%= post.id %>" method="POST">
+                <button type="submit" class="btn delete-btn">Delete</button>
+              </form>
+            </span>
+          </div>
+        <% }) %>
+      <% } %>
+
+      <%- include("../../partials/backend/success-msg.ejs") %>
+    </div>
+
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

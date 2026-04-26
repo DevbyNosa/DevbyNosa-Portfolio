@@ -1,0 +1,57 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Experience</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Add New Experience</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/experience" method="POST" class="cms-form">
+        <div class="instruction-hero">
+          <h6>Add New Experience</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/cms/experience"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label for="role">Role</label>
+            <input type="text" placeholder="e.g. Full Stack Developer" name="role" value="" required>
+          </span>
+
+          <span>
+            <label for="company">Company</label>
+            <input type="text" placeholder="e.g. Freelance" name="company" value="">
+          </span>
+
+          <span>
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" required>
+          </span>
+
+          <span>
+            <label for="endDate">End Date (leave empty if current)</label>
+            <input type="date" name="endDate">
+          </span>
+
+          <span>
+            <label for="description">Description</label>
+            <textarea name="description" placeholder="Enter experience description" required></textarea>
+          </span>
+
+          <button type="submit" class="cms-submit-btn">Add Experience</button>
+        </div>
+
+        <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

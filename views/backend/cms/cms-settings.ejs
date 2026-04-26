@@ -1,0 +1,68 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<!-- Also known as contact -->
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Hero</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Contact</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/contact" method="POST" class="cms-form">
+        <div class="instruction-hero">
+          <h6>Update Contact Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label class="cms-label" for="contactwhatsapp">Contact whatsapp no</label>
+            <input type="text" id="contactwhatsapp" name="whatsapp_contact" placeholder="Enter Whatsapp no" value="<%= contact.whatsapp_no %>" >
+          </span>
+          <span>
+            <label class="cms-label" for="contactemail">Contact Email address</label>
+            <input type="text" id="contactemail" name="email_contact" placeholder="Enter Email address" value="<%= contact.email %>" >
+          </span>
+
+
+          <div class="hero-buttons-link">
+          <span>
+            <label class="cms-label" for="githublink">Github Socials</label>
+            <input type="text" id="githublink" name="github_contact" placeholder="Enter Github socials" value="<%= contact.github %>" >
+          </span>
+          
+          <span>
+            <label class="cms-label" for="linkedinlink">Linkedin Socials</label>
+            <input type="text" id="linkedinlink" name="linkedin_contact" placeholder="Enter Linkedin socials" value="<%= contact.linkedin %>">
+          </span>
+          </div>
+
+          <div class="hero-buttons-link">
+           <span>
+            <label class="cms-label" for="xlink">X (Twitter) socials</label>
+            <input type="text" id="xlink" name="x_contact" placeholder="Enter X socials" value="<%= contact.x_twitter %>" >
+          </span>
+          <span>
+            <label class="cms-label" for="tiktoklink">Tiktok socials</label>
+            <input type="text" id="tiktoklink" name="tiktok_contact" placeholder="Enter Tiktok socials" value="<%= contact.tiktok %>">
+          </span>
+          </div>
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+   
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

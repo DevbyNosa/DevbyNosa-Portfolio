@@ -1,0 +1,88 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Experience</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Edit Experience</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/experience/<%= experience.id %>" method="POST" class="cms-form" data-redirect="/<%= adminLink %>/cms/experience">
+        <div class="instruction-hero">
+          <h6>Update Experience</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/cms/experience"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label for="role">Role</label>
+            <input type="text" placeholder="e.g. Full Stack Developer" name="role" value="<%= experience.role %>" required>
+          </span>
+
+          <span>
+            <label for="company">Company</label>
+            <input type="text" placeholder="e.g. Freelance" name="company" value="<%= experience.company %>">
+          </span>
+
+          <span>
+            <label for="startDate">Start Date</label>
+            <input type="date" name="startDate" value="<%= experience.start_date ? experience.start_date.toISOString().split('T')[0] : '' %>" required>
+          </span>
+
+          <span>
+            <label for="endDate">End Date (leave empty if current)</label>
+            <input type="date" name="endDate" value="<%= experience.end_date ? experience.end_date.toISOString().split('T')[0] : '' %>">
+          </span>
+
+          <span>
+            <label for="description">Description</label>
+            <textarea name="description" placeholder="Enter experience description" required><%= experience.description %></textarea>
+          </span>
+
+          <button type="submit" class="cms-submit-btn">Update Experience</button>
+        </div>
+
+        <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('.cms-form');
+        if (form) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+              const msgDiv = document.querySelector('.success-message');
+              if (msgDiv) {
+                msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                msgDiv.style.display = 'block';
+                msgDiv.style.opacity = '1';
+              }
+              const redirect = form.dataset.redirect;
+              if (redirect) {
+                window.location.href = redirect;
+              }
+            } else {
+              // handle error
+            }
+          });
+        }
+      });
+    </script>
+
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

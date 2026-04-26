@@ -1,0 +1,103 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>About</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Edit Project</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/project/<%= projects.id %>" method="POST" class="cms-form" enctype="multipart/form-data">
+        <div class="instruction-hero">
+          <h6>Update Project Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/cms/project"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label for="projectUrl">Project Url</label>
+            <input type="text" placeholder="https://example.com" name="updateprojectUrl" value="<%= projects.project_url %>" >
+          </span>
+
+          <span>
+            <label for="projectName">Project Name</label>
+            <input type="text" placeholder="Enter Project name" name="updateprojectName" value="<%= projects.project_name %>" >
+          </span>
+          <span>
+            <label class="cms-label" for="projectInformation">Project information</label>
+            <textarea id="projectInformation" name="updateprojectInformation" placeholder="Enter project information"><%= projects.project_information%></textarea>
+          </span>
+
+          
+          <span>
+            <label for="stack-type">Project Stack</label>
+
+            <input type="text" placeholder="Enter stack type" name="updateprojectStack" value="<%= projects.project_stack %>">
+          </span>
+
+        <div class="about-image-upload">
+          <span>
+         <label for="imageUpload">Image Upload</label>
+         <input type="file" id="projectImage" name="updateprojectImage" accept="image/*" class="image-upload-input">
+         </span>
+
+
+         <span>
+
+         <label for="altImage">Image Alt Text</label>
+         <input type="text" id="altImage" name="updateprojectAltText" placeholder="Enter image alt text" value="<%= projects.image_alt %>">
+         </span>
+         </div>
+
+         <div class="uploaded-image-parent">
+        
+         </div>
+        
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const form = document.querySelector('.cms-form');
+        if (form) {
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+              method: 'POST',
+              body: formData
+            });
+            const result = await response.json();
+            if (result.success) {
+              const msgDiv = document.querySelector('.success-message');
+              if (msgDiv) {
+                msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
+                msgDiv.style.display = 'block';
+                msgDiv.style.opacity = '1';
+              }
+              const redirect = form.dataset.redirect;
+              if (redirect) {
+                window.location.href = redirect;
+              }
+            } else {
+              // handle error
+            }
+          });
+        }
+      });
+    </script>
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

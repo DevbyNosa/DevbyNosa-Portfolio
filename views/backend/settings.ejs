@@ -1,0 +1,68 @@
+<%- include("../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Settings</h4>
+      <div class="cms-sub-header">
+        <p>Admin</p>
+        <p>/</p>
+        <p>Settings</p>
+      </div>
+
+      <form action="/<%= adminLink %>/settings" method="POST" class="cms-form">
+        <div class="instruction-hero">
+          <h6>Settings Page</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+        
+          <span>
+            <label class="cms-label" for="readonlyUsername">Username</label>
+            <input type="text" id="readonlyUsername" name="readonly_username" placeholder="" value="<%= admin.username %>" readonly>
+          </span>
+
+          <span>
+    
+            <label for="newUsername">New Username</label>
+            <input type="username" id="newUsername" name="new_username" placeholder="" value="">
+          </span>
+
+        
+          
+          <span>
+            <label class="cms-label" for="oldpassword">Old password</label>
+            <input type="password" id="oldpassword" name="old_password" placeholder="Enter old password" value="" required>
+          </span>
+
+             <span>
+            <label class="cms-label" for="newpassword">New password</label>
+            <input type="password" id="newpassword" name="new_password" placeholder="Enter new password" value="" minlength="6">
+          </span>
+
+             <span>
+            <label class="cms-label" for="re_password">Old password</label>
+            <input type="password" id="re_password" name="re_password" placeholder="Re-enter password" value="" minlength="6">
+          </span>
+         
+         
+         
+          
+
+       
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+   
+    
+    <%- include("../partials/backend/footer.ejs") %>
+  </section>
+</div>

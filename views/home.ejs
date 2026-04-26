@@ -1,0 +1,199 @@
+<%- include('partials/header.ejs') %>
+
+<section id="home" class="reveal-hidden">
+  <div class="hero-section">
+    <span class="status-badge">
+     <img src="/images/dot-svgrepo-com.svg" alt="Online Status" class="status-icon">
+     <span class="status-text"><%= header.hero_subtitle %></span>
+    </span>
+  <%- header.hero_title %>
+<%- header.hero_description %>
+
+
+<div class="hero-btn">
+  <a href="<%= header.hero_button_link %>" class="btn btn-primary hero-btn"><%= header.hero_button_text %></a>
+  <a class="btn secondary-btn hero-btn" href="<%= header.contact_button_link %>"><%= header.contact_button_text %></a>
+</div>
+  </div>
+</section>
+
+<section class="about-section" id="about">
+<h2 class="about-h2"><%- about.title %></h2>
+
+<div class="about-container">
+<div class="about-text">
+<%- about.description %>
+
+<%- about.stack %>
+</div>
+
+<div>
+  <img class="about-image" src="<%= about.image %>" alt="<%= about.image_alt %>">
+</div>
+</div>
+</section>
+
+<section class="service-section" id="service">
+<h2><%= service.title %></h2>
+<%- service.description %>
+
+<%- service.service_types %>
+</section>
+
+<section  id="projects" class="project-section">
+  <h2><%= projectHeader.title %></h2>
+ <p class="showcase-text"><%= projectHeader.text_paragraph %></p>
+<div class="project-container">
+  <% if(!project || project.length === 0) { %>
+  <p>No Project Currently</p>
+<% } else { %>
+  <% project.forEach(items => { %>
+    <a href="<%= items.project_url %>" class="project-card">
+      <div class="project-image-container">
+      
+        <img src="<%= items.image %>" alt="<%= items.image_alt %>" class="project-image">
+      </div>
+      <div class="project-info">
+        <h4 class="project-title"><%= items.project_name %></h4>
+        <p class="project-desc"><%= items.project_information %></p>
+        <div class="project-tags">
+  <% 
+  // If project_stack is null, it uses "" so .split doesn't crash
+  const stackString = items.project_stack || ""; 
+  const tags = stackString.split(/[,\s]+/).filter(Boolean); 
+  
+  tags.forEach(tech => { 
+%>
+  <span class="stack-card"><%= tech.trim() %></span>
+<% }); %>
+</div>
+
+        <div class="view-project">View Project <i class="fa-solid fa-arrow-right"></i></div>
+      </div>
+    </a>
+  <% }); %>
+<% } %>
+
+
+
+  </div>
+</section>
+
+<section id="experience" class="experience-section">
+  <h2 class="section-title">Work Experience</h2>
+  
+  <div class="experience-container">
+    <% if(!experience || experience.length === 0) { %>
+      <p>No Experience Currently</p>
+    <% } else { %>
+      <% experience.forEach(exp => { %>
+        <div class="experience-card">
+          <div class="exp-header">
+            <div class="exp-role">
+              <h3><%= exp.role %></h3>
+              <span class="exp-company"><%= exp.company %></span>
+            </div>
+            <span class="exp-date"><%= new Date(exp.start_date).getFullYear() %> — <%= exp.end_date ? new Date(exp.end_date).getFullYear() : 'Present' %></span>
+          </div>
+
+          <ul class="experience-list">
+            <% if(exp.description) { %>
+              <% exp.description.split('\n').forEach(line => { %>
+                <% if(line.trim()) { %>
+                  <li class="experience-item"><%= line.trim() %></li>
+                <% } %>
+              <% }); %>
+            <% } %>
+          </ul>
+        </div>
+      <% }); %>
+    <% } %>
+  </div>
+</section>
+
+
+<section id="contact" class="contact-section">
+   <h2 class="section-title">Get in touch</h2>
+
+   <p class="contact-intro">Big ideas deserve a great digital home. Whether you're looking to level up or just want to see my portfolio deck, I'm all ears. Email me, book a call, or shoot me a WhatsApp, let's chat about your goals!</p>
+
+   <div class="contact-content-wrapper">
+       <div class="contact-links">
+        <span class="contact-link">
+          <i class="fa-brands fa-whatsapp"></i>
+          <span class="child-span">WhatsApp</span>
+            <span class="child-message-span">Get a quick response on WhatsApp</span>
+              <a href="https://wa.me/<%= contact.whatsapp_no %>" class="btn whatsapp-btn">Chat Now</a>
+        </span>
+
+        <span class="contact-link">
+          <i class="fa-solid fa-at"></i>
+          <span class="child-span"> Email</span>
+         <span class="child-message-span">Get a quick response on Email</span>
+          <a href="mailto:<%= contact.email %>" class="btn email-btn">Send Email</a>
+        </span>
+       </div>
+
+       <div class="contact-right">
+           <div class="social-links">
+              <span class="social-text">Catch my latest</span>
+              <span class="links-span-tab">
+              <a href="<%= contact.github %>" target="_blank" class="social-link"><i class="fa-brands fa-github"></i></a>
+              <a href="<%= contact.linkedin %>" target="_blank" class="social-link"><i class="fa-brands fa-linkedin"></i></a>
+              <a href="<%= contact.x_twitter %>" target="_blank" class="social-link"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="<%= contact.tiktok %>" target="_blank" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+              </span>
+           </div>
+           
+           <form action="/message" method="POST" class="contact-form">
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Full Name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="Email Address" required>
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" placeholder="Write Your Message" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary contact-btn"><i class="fa-solid fa-paper-plane"></i>Send Message</button>
+           </form>
+       </div>
+   </div>
+</section>
+
+<section id="blog" class="blog-section">
+  <h2 class="section-title">Latest Articles</h2>
+  <p class="blog-subtitle">Insights and tips on web development, backend architecture, and best practices</p>
+  
+  <div class="blog-container">
+    <% if (blogs && blogs.length > 0) { %>
+      <% blogs.forEach(blog => { %>
+        <article class="blog-card">
+          <div class="blog-image-container">
+            <img src="<%= blog.image || '/images/logo.png' %>" alt="<%= blog.image_alt || blog.title %>" class="blog-image">
+          </div>
+          <div class="blog-content">
+            <h3 class="blog-title"><%= blog.title %></h3>
+            <p class="blog-excerpt"><%= blog.excerpt %></p>
+            <div class="blog-meta">
+              <span class="blog-date"><%= new Date(blog.published_at).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) %></span>
+              <span class="blog-read-time">5 min read</span>
+            </div>
+            <a href="/blog/<%= blog.slug %>" class="btn btn-primary blog-btn">Read More</a>
+          </div>
+        </article>
+      <% }); %>
+    <% } else { %>
+      <div class="no-blogs-message">
+        <h3>Thoughts, insights, and updates from my journey as a developer</h3>
+        <p>No blog posts yet<br>Check back soon for new content!</p>
+      </div>
+    <% } %>
+  </div>
+</section>
+
+
+<%- include('partials/footer.ejs') %>

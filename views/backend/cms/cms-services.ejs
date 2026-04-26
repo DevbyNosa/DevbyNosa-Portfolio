@@ -1,0 +1,48 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Hero</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Services</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/services" method="POST" class="cms-form">
+        <div class="instruction-hero">
+          <h6>Update Service Section</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/dashboard"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label class="cms-label" for="serviceTitle">Service title</label>
+            <input type="text" id="serviceTitle" name="serviceTitle" placeholder="Enter service title" value="<%= service.title %>" >
+          </span>
+      
+
+          <span>
+            <label class="cms-label" for="serviceDescription">Service Description</label>
+            <textarea id="serviceDescription" name="serviceDescription" placeholder="Enter service cards" ><%= service.description %></textarea>
+          </span>
+
+      <label for="serviceType">Types of Services</label>
+      <input type="text" id="serviceType" name="serviceType" placeholder="Enter service types" value="<%= service.service_types %>" >
+
+          <button type="submit" class="cms-submit-btn">Save Changes</button>
+        </div>
+      
+       <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+   
+    
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>

@@ -1,0 +1,64 @@
+<%- include("../../partials/backend/header.ejs") %>
+
+<div class="admin-dashboard-container">
+
+  <%- include("../../partials/backend/sidebar.ejs") %>
+
+  <section class="dashboard-content">
+    <div class="cms-header">
+      <h4>Blog Posts</h4>
+      <div class="cms-sub-header">
+        <p>Dashboard</p>
+        <p>/</p>
+        <p>Add New Post</p>
+      </div>
+
+      <form action="/<%= adminLink %>/cms/new/blog" method="POST" class="cms-form" enctype="multipart/form-data">
+        <div class="instruction-hero">
+          <h6>Add New Blog Post</h6>
+          <a class="btn btn-primary" href="/<%= adminLink %>/cms/blog"> back</a>
+        </div>
+
+        <div class="cms-input-area">
+          <span>
+            <label for="title">Post Title</label>
+            <input type="text" placeholder="Enter blog post title" name="title" value="" required>
+          </span>
+
+          <span>
+            <label for="excerpt">Excerpt</label>
+            <textarea name="excerpt" placeholder="Brief description of the post" required></textarea>
+          </span>
+
+          <span>
+            <label for="content">Content</label>
+            <textarea name="content" placeholder="Write your blog post content here..." required></textarea>
+          </span>
+
+          <div class="about-image-upload">
+            <span>
+              <label for="blogImage">Featured Image</label>
+              <input type="file" id="blogImage" name="blogImage" accept="image/*" class="image-upload-input">
+            </span>
+
+            <span>
+              <label for="imageAlt">Image Alt Text</label>
+              <input type="text" id="imageAlt" name="imageAlt" placeholder="Describe the image" value="">
+            </span>
+          </div>
+
+          <div class="published-checkbox">
+            <input type="checkbox" id="published" name="published">
+            <label for="published">Publish immediately</label>
+          </div>
+
+          <button type="submit" class="cms-submit-btn">Create Post</button>
+        </div>
+
+        <%- include("../../partials/backend/success-msg.ejs") %>
+      </form>
+    </div>
+
+    <%- include("../../partials/backend/footer.ejs") %>
+  </section>
+</div>
