@@ -23,8 +23,8 @@ const blogCount = countResult.rows[0].count;
 
 
 const dateResult = await pool.query('SELECT title, created_at FROM blog_posts ORDER BY created_at DESC LIMIT 1');
-const lastDate = dateResult.rows[0]?.created_at; 
-const latestBlogEntry = dateResult.rows[0].title; 
+const lastDate = dateResult.rows[0]?.created_at || new Date(); 
+const latestBlogEntry = dateResult.rows[0]?.title || "No articles yet"; 
 
 
 const projectResult = await pool.query('SELECT * FROM project')
