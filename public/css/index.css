@@ -1137,4 +1137,13 @@
 
 
 
+/* 404 Page */
+.error-404-parent, .error-500-parent {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  min-height: 40vh;      
+  text-align: center;
+  padding-top: 14rem;
+}
 

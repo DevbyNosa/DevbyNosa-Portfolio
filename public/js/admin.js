@@ -1,7 +1,7 @@
 
 const totalViews = document.querySelector('.views-value');
 
-// Hamburger menu functionality
+
 const menuToggle = document.getElementById('menuToggle');
 const topbarNav = document.querySelector('.topbar-nav');
 const sidebar = document.querySelector('.sidebar-dashboard');

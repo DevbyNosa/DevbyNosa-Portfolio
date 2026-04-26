@@ -44,81 +44,48 @@
       </form>
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', () => {
-        const form = document.querySelector('.cms-form');
-        if (form) {
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-              method: 'POST',
-              body: formData
-            });
-            const result = await response.json();
-            if (result.success) {
-              const msgDiv = document.querySelector('.success-message');
-              if (msgDiv) {
-                msgDiv.innerHTML = '<i class="fas fa-check-circle"></i> ' + result.message;
-                msgDiv.style.display = 'block';
-                msgDiv.style.opacity = '1';
-              }
-              const redirect = form.dataset.redirect;
-              if (redirect) {
-                window.location.href = redirect;
-              }
-            } else {
-              // handle error
-            }
-          });
-        }
-      });
-    </script>
+   
 
      <div class="project-plus-parent">
       <span>
-        Total Project: 15
+        Total Project: <%= adminLink.length %>
       </span>
       <a href="/<%= adminLink %>/cms/new/project" class="btn add-btn">Add New Project</a>
       </div>
 
        <!--Table section-->
 
-    <div class="table-container">
+   <div class="table-container">
+  <!-- Wrap everything inside here -->
+  <div class="table-responsive">
      
-     
-      <div class="table-id">
-        <h6>No</h6>
-        <h6>Title</h6>
-        <h6>Action</h6>
-        <h6>Url</h6>
-      </div>
-
-      <% if(!projects || projects. length === 0) { %>
-        <p>No Project Currently</p>
-     <% } else { %>
-
-<% projects.forEach(items => { %>
-       <div class="table-child">
-      <span id="number"><%= items.id %></span>
-      <span id="title"><%= items.project_name %></span>
-      <span class="action-btn">
-      <a class="btn edit-btn" href="/<%= adminLink %>/cms/project/<%= items.id %>" id="edit-action" >Edit</a>
-   
-      <form action="/<%= adminLink %>/cms/project/delete/<%= items.id %>" method="POST">
-      <button type="submit" class="btn delete-btn">Delete</button>
-      </form>
-
-      </span>
-      <span><%= items.project_url %></span>
-      </div>
-      <% }) %>
-      <% } %>
-      
-
-         <%- include("../../partials/backend/success-msg.ejs") %>
+    <div class="table-id">
+      <h6>No</h6>
+      <h6>Title</h6>
+      <h6>Action</h6>
+      <h6>Url</h6>
     </div>
 
+    <% if(!projects || projects.length === 0) { %>
+      <p>No Project Currently</p>
+    <% } else { %>
+      <% projects.forEach(items => { %>
+        <div class="table-child">
+          <span id="number"><%= items.id %></span>
+          <span id="title"><%= items.project_name %></span>
+          <span class="action-btn">
+            <a class="btn edit-btn" href="/<%= adminLink %>/cms/project/<%= items.id %>">Edit</a>
+            <form action="/<%= adminLink %>/cms/project/delete/<%= items.id %>" method="POST">
+              <button type="submit" class="btn delete-btn">Delete</button>
+            </form>
+          </span>
+          <span><%= items.project_url %></span>
+        </div>
+      <% }) %>
+    <% } %>
+
+  </div> 
+</div>
 
     
     <%- include("../../partials/backend/footer.ejs") %>
