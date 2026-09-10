@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+@custom-variant hover (&:hover);
+@custom-variant group-hover (.group:hover &);
