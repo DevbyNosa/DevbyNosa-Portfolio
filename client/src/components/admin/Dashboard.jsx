@@ -10,6 +10,7 @@ import {
   Activity,
 } from "lucide-react";
 import Sidebar from "./SideBar";
+import Loading from "./Loading";
 
 // ---- Helpers ----
 function timeAgo(dateStr) {
@@ -72,9 +73,14 @@ function Stat({ label, value, change, icon: Icon, large = false }) {
   );
 }
 
-// ---- Views chart ----
-function ViewsChart({ data = [], total = 0, change = "" }) {
+function ViewsChart({ data = [], total = 0, change = "", days = 30, onDaysChange }) {
   const points = buildPolyline(data);
+
+  const periods = [
+    { label: "7D", value: 7 },
+    { label: "30D", value: 30 },
+    { label: "90D", value: 90 },
+  ];
 
   return (
     <div className="border border-[#252a2f] bg-[#111417] p-6 md:p-7">
@@ -101,21 +107,22 @@ function ViewsChart({ data = [], total = 0, change = "" }) {
           </div>
 
           <p className="mt-2 text-[11px] text-[#666d74]">
-            Compared with the previous 30 days
+            Compared with the previous {days} days
           </p>
         </div>
 
         <div className="flex items-center gap-1 border border-[#252a2f] p-1">
-          {["7D", "30D", "90D"].map((item, index) => (
+          {periods.map((period) => (
             <button
-              key={item}
+              key={period.value}
+              onClick={() => onDaysChange?.(period.value)}
               className={`px-3 py-1.5 text-[9px] font-medium ${
-                index === 1
+                days === period.value
                   ? "bg-[#315bea] text-white"
                   : "text-[#666d74] hover:text-[#f1f1ee]"
               }`}
             >
-              {item}
+              {period.label}
             </button>
           ))}
         </div>
@@ -168,7 +175,7 @@ function ViewsChart({ data = [], total = 0, change = "" }) {
       <div className="mt-3 flex justify-between text-[9px] text-[#555c63]">
         {data.length > 0 ? (
           data
-            .filter((_, i) => i % Math.ceil(data.length / 6) === 0)
+            .filter((_, i) => i % Math.max(Math.ceil(data.length / 6), 1) === 0)
             .slice(0, 6)
             .map((d) => (
               <span key={d.date}>
@@ -195,6 +202,7 @@ function ViewsChart({ data = [], total = 0, change = "" }) {
 
 // ---- Countries ----
 function Countries({ data = [] }) {
+  const limited = data.slice(0, 5);
   return (
     <div className="border border-[#252a2f] bg-[#111417] p-6">
       <div className="flex items-center justify-between">
@@ -211,10 +219,10 @@ function Countries({ data = [] }) {
       </div>
 
       <div className="mt-7 space-y-5">
-        {data.length === 0 ? (
+        {limited.length === 0 ? (
           <p className="text-[11px] text-[#555c63]">No data yet.</p>
         ) : (
-          data.map((country, index) => (
+          limited.map((country, index) => (
             <div key={country.code}>
               <div className="mb-2 flex items-center justify-between">
                 <div className="flex items-center gap-3">
@@ -255,6 +263,7 @@ function Countries({ data = [] }) {
 
 // ---- Recent visitors ----
 function RecentVisitors({ data = [] }) {
+  const limited = data.slice(0, 10);
   return (
     <div className="border border-[#252a2f] bg-[#111417]">
       <div className="flex items-center justify-between border-b border-[#252a2f] px-6 py-5">
@@ -274,12 +283,12 @@ function RecentVisitors({ data = [] }) {
       </div>
 
       <div>
-        {data.length === 0 ? (
+        {limited.length === 0 ? (
           <p className="px-6 py-6 text-[11px] text-[#555c63]">
             No visitors yet.
           </p>
         ) : (
-          data.map((visitor, index) => (
+          limited.map((visitor, index) => (
             <div
               key={`${visitor.created_at}-${index}`}
               className="group grid grid-cols-[1fr_auto] gap-4 border-b border-[#20252a] px-6 py-4 last:border-0 hover:bg-[#15191d]"
@@ -391,9 +400,7 @@ export default function AdminDashboard() {
 
   if (!stats) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0b0d0f] text-[#666d74]">
-        Loading…
-      </div>
+     <Loading />
     );
   }
 
@@ -499,6 +506,8 @@ export default function AdminDashboard() {
               data={chart}
               total={summary.totalViews}
               change={summary.change}
+              days={days}
+              onDaysChange={setDays}
             />
 
             <div className="border border-[#252a2f] bg-[#111417] p-6">

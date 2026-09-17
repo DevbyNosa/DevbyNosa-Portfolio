@@ -1,15 +1,38 @@
 import crypto from "crypto";
 import { pool } from "../config/database.js";
-import {UAParser} from "ua-parser-js";
+import { UAParser } from "ua-parser-js";
 import geoip from "geoip-lite";
+
+const COUNTRY_NAMES = {
+  NG: "Nigeria",
+  US: "United States",
+  GB: "United Kingdom",
+  CA: "Canada",
+  DE: "Germany",
+  FR: "France",
+  IN: "India",
+  ZA: "South Africa",
+  GH: "Ghana",
+  KE: "Kenya",
+  AU: "Australia",
+  BR: "Brazil",
+  NL: "Netherlands",
+  ES: "Spain",
+  IT: "Italy",
+};
+
+const IGNORED_PATHS = ["/health", "/favicon.ico", "/robots.txt"];
 
 export async function trackHandler(req, res) {
   try {
     const { path, referrer } = req.body || {};
 
-    // Bail early on garbage input, better than throwing mid-parse
     if (!path || typeof path !== "string") {
       return res.status(400).json({ error: "path is required" });
+    }
+
+    if (IGNORED_PATHS.includes(path)) {
+      return res.status(204).end();
     }
 
     const ip =
@@ -18,14 +41,12 @@ export async function trackHandler(req, res) {
       "";
     const ua = req.headers["user-agent"] || "";
 
-    //  Hash IP + UA so we never store either raw
     const visitorId = crypto
       .createHash("sha256")
       .update(ip + ua + (process.env.HASH_SALT || ""))
       .digest("hex")
       .slice(0, 16);
 
-    //  Parse user agent, wrapped since malformed UAs can throw
     let device = "Desktop";
     let browser = "Other";
     let os = "Other";
@@ -41,7 +62,6 @@ export async function trackHandler(req, res) {
       console.warn("[track] UA parse failed:", err.message);
     }
 
-    //  Geo lookup, offline, but can still throw on malformed IPs
     let country = null;
     let city = null;
     try {
@@ -52,9 +72,14 @@ export async function trackHandler(req, res) {
       console.warn("[track] geo lookup failed:", err.message);
     }
 
-    const countryName = null;   // map code → name client-side
+    // Dev-only mock so localhost shows a country
+    if (!country && (ip === "::1" || ip === "127.0.0.1" || ip.startsWith("::ffff:127"))) {
+      country = "NG";
+      city = "Lagos";
+    }
 
-    // Normalize referrer, URL() throws on malformed URLs
+    const countryName = country ? (COUNTRY_NAMES[country] || country) : null;
+
     let referrerHost = null;
     if (referrer) {
       try {
@@ -64,7 +89,6 @@ export async function trackHandler(req, res) {
       }
     }
 
-    // reuse cookie if present, else generate
     let sessionId = req.cookies?.sid;
     if (!sessionId) {
       sessionId = crypto.randomUUID();
@@ -79,7 +103,19 @@ export async function trackHandler(req, res) {
       }
     }
 
-    // Insert the main failure point
+    const { rowCount } = await pool.query(
+      `SELECT 1 FROM page_views
+       WHERE visitor_id = $1
+         AND path = $2
+         AND created_at > NOW() - INTERVAL '30 minutes'
+       LIMIT 1`,
+      [visitorId, path]
+    );
+
+    if (rowCount > 0) {
+      return res.status(204).end();
+    }
+
     await pool.query(
       `INSERT INTO page_views
         (path, referrer, referrer_host, country, country_name, city,

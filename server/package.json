@@ -23,6 +23,7 @@
     "helmet": "^8.3.0",
     "morgan": "^1.12.0",
     "multer": "^2.3.0",
+    "multer-storage-cloudinary": "^4.0.0",
     "pg": "^8.23.0",
     "ua-parser-js": "^2.0.10"
   }

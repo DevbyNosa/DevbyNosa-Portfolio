@@ -55,7 +55,7 @@ export default function Sidebar() {
       {/* BRAND */}
       <div className="px-3 pb-8">
         <Link
-          to="/nosa-panel-x7k/dashboard"
+          to="/admin/dashboard"
           className="font-['Space_Grotesk'] text-[19px] font-bold tracking-[-0.5px]"
         >
           Devby<span className="text-[#315bea]">Nosa</span>
