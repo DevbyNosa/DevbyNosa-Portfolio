@@ -7,7 +7,7 @@ import Analytics from "./pages/admin/Analytics";
 import AdminProjects from "./pages/admin/Project";
 import Blog from "./pages/admin/Blog";
 import Messages from "./pages/admin/Message";
-import SettingsPage from "./pages/admin/settings,";
+import SettingsPage from "./pages/admin/Settings";
 import TrackPageViews from "./components/TrackPageViews";
 import ProtectedRoute from "./pages/admin/ProtectedRoute";
 import NotFound from "./pages/NotFound";
