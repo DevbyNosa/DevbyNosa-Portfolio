@@ -1,7 +1,7 @@
 {
-  "buildCommand": "npm run build --prefix client",
-  "outputDirectory": "client/dist",
-  "installCommand": "npm install --prefix client",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
   "rewrites": [
     {
       "source": "/(.*)",
