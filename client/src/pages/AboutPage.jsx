@@ -75,7 +75,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="max-w-[640px] space-y-[22px] text-[17px] leading-[1.85] text-[#3a3a3a]">
+        <div className="min-w-0 max-w-[640px] space-y-[22px] break-words text-[17px] leading-[1.85] text-[#3a3a3a]">
           <p>
             I started coding in 2024. No bootcamp, no CS degree — just
             curiosity and a lot of late nights. The first thing I built was
@@ -187,7 +187,7 @@ export default function AboutPage() {
           </p>
         </div>
 
-        <div className="max-w-[640px] space-y-[22px] text-[17px] leading-[1.85] text-[#3a3a3a]">
+        <div className="min-w-0 max-w-[640px] space-y-[22px] break-words text-[17px] leading-[1.85] text-[#3a3a3a]">
           <p>
             I'm open to freelance work, contract roles, and full-time
             positions where I can build real products with real users. I'm
@@ -228,7 +228,7 @@ export default function AboutPage() {
           <div className="flex flex-col gap-4">
             <a
               href="mailto:judgesnigbinosa@gmail.com"
-              className="inline-flex items-center gap-3 border-b border-[#171717] pb-2 font-['Space_Grotesk'] text-[17px] font-medium transition-colors hover:text-[#315bea]"
+              className="inline-flex max-w-full items-center gap-3 break-all border-b border-[#171717] pb-2 font-['Space_Grotesk'] text-[17px] font-medium transition-colors hover:text-[#315bea]"
             >
               <Mail size={18} strokeWidth={1.8} />
               judgesnigbinosa@gmail.com

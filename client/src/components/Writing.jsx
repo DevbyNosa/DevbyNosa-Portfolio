@@ -27,7 +27,7 @@ function PostRow({ post, index }) {
 
   return (
     <motion.article
-      className="group grid gap-5 border-b border-[#d8d7d2] py-[30px] md:grid-cols-[.15fr_auto_1fr_.25fr] md:items-center"
+      className="group grid min-w-0 gap-5 border-b border-[#d8d7d2] py-[30px] md:grid-cols-[.15fr_auto_minmax(0,1fr)_.25fr] md:items-center"
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}
@@ -56,8 +56,8 @@ function PostRow({ post, index }) {
       </div>
 
       {/* Title + excerpt */}
-      <div>
-        <h3 className="font-['Space_Grotesk'] text-[25px] font-medium tracking-[-1px] transition-colors group-hover:text-[#315bea]">
+      <div className="min-w-0">
+        <h3 className="break-words font-['Space_Grotesk'] text-[25px] font-medium tracking-[-1px] transition-colors group-hover:text-[#315bea]">
           {post.title}
         </h3>
 

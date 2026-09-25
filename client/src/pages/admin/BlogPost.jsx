@@ -153,7 +153,7 @@ export default function BlogPost() {
         )}
 
         {/* Content */}
-        <div className="mt-[50px] whitespace-pre-line text-[17px] leading-[1.85] text-[#3a3a3a]">
+        <div className="mt-[50px] whitespace-pre-line break-words text-[17px] leading-[1.85] text-[#3a3a3a]">
           {post.content}
         </div>
 

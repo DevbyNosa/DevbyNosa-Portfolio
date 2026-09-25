@@ -8,8 +8,8 @@ export default function TechStrip() {
   ];
 
   return (
-    <div className="overflow-hidden border-y border-[#d8d7d2] py-5 w-100">
-      <div className="flex w-max animate-marquee">
+    <div className="box-border w-full max-w-full min-w-0 overflow-hidden border-y border-[#d8d7d2] py-5">
+      <div className="flex w-max max-w-none animate-marquee">
 
         <div className="flex shrink-0">
           {technologies.map((tech) => (
