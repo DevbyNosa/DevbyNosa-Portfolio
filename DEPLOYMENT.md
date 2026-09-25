@@ -8,7 +8,7 @@ The frontend is deployed to Vercel and the Express API to Render. Production fro
 2. In Render, create a Blueprint from this repository using `render.yaml`. Set `DATABASE_URL` to the database provider's connection string and `CLIENT_ORIGIN` to the exact deployed Vercel origin, such as `https://your-project.vercel.app`. For a custom frontend domain, include both origins separated by a comma.
 3. Set `CLOUD_NAME`, `CLOUD_KEY`, and `CLOUD_SECRET` in Render to enable image uploads.
 4. Run `database/Schema.sql` once against the empty production database. The session table is created automatically by `express-session` when the API starts.
-5. Verify the API health endpoint at `https://devbynosa.onrender.com/health`.
+5. Verify the API health endpoint at `https://devbynosa-api.onrender.com/health`.
 
 Render generates `SESSION_SECRET` and `HASH_SALT`. Keep the generated secrets private. The free Render service may sleep when idle, so its first API request can take longer while it wakes.
 
