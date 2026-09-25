@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../../lib/api.js";
 import { Check, Globe, Save } from "lucide-react";
 import Sidebar from "./SideBar";
 

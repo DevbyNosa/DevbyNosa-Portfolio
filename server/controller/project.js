@@ -183,7 +183,7 @@ export async function publicProjects(req, res) {
       slug: row.slug,
       description: row.description,
       image: row.image,
-      tags: row.stack || [],
+      tags: row.stack ? row.stack.split(",").map((tag) => tag.trim()).filter(Boolean) : [],
       repo: row.github,
       link: row.domain,
       status: row.project_status,

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Sidebar from "./SideBar";
 import Loading from "./Loading";
+import { apiFetch } from "../../lib/api.js";
 
 
 // ---- Helpers ----
@@ -419,7 +420,7 @@ export default function Analytics() {
 
     async function load() {
       try {
-        const r = await fetch(`/api/admin/stats?days=${days}`);
+        const r = await apiFetch(`/api/admin/stats?days=${days}`);
         const data = await r.json();
         if (!cancelled) setStats(data);
       } catch (err) {

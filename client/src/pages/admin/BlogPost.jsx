@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { ArrowLeft, Calendar, Clock } from "lucide-react";
-import axios from "axios";
+import axios from "../../lib/api.js";
 import Navbar from '../../components/Header'
 import Footer from '../../components/Footer'
 import SEO from '../../components/SEO'

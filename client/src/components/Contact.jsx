@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Mail, Send } from "lucide-react";
 import { useState } from "react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
-import axios from "axios";
+import axios from "../lib/api.js";
 
 export default function Contact({ content = {} }) {
   const [name, setName] = useState("");

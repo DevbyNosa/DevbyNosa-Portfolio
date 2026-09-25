@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import Sidebar from "./SideBar";
 import Loading from "./Loading";
+import { apiFetch } from "../../lib/api.js";
 
 // ---- Helpers ----
 function timeAgo(dateStr) {
@@ -341,7 +342,7 @@ export default function AdminDashboard() {
 
     async function load() {
       try {
-        const r = await fetch(`/api/admin/stats?days=${days}`);
+        const r = await apiFetch(`/api/admin/stats?days=${days}`);
         const data = await r.json();
         if (!cancelled) {
           setStats(data);
@@ -366,7 +367,7 @@ export default function AdminDashboard() {
 
     async function load() {
       try {
-        const r = await fetch("/api/admin/live");
+        const r = await apiFetch("/api/admin/live");
         const data = await r.json();
         if (!cancelled) setLive(data);
       } catch (err) {
@@ -385,11 +386,11 @@ export default function AdminDashboard() {
   // Refetch on tab focus
   useEffect(() => {
     function onFocus() {
-      fetch(`/api/admin/stats?days=${days}`)
+      apiFetch(`/api/admin/stats?days=${days}`)
         .then((r) => r.json())
         .then(setStats)
         .catch(() => {});
-      fetch("/api/admin/live")
+      apiFetch("/api/admin/live")
         .then((r) => r.json())
         .then(setLive)
         .catch(() => {});

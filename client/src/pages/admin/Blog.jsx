@@ -11,7 +11,7 @@ import {
   Upload,
   Calendar,
 } from "lucide-react";
-import axios from "axios";
+import axios from "../../lib/api.js";
 import Sidebar from "./SideBar";
 
 // ─────────────────────────────────────────────

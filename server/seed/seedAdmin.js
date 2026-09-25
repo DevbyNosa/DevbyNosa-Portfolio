@@ -1,52 +1,37 @@
-/*import bcrypt from 'bcrypt';
-import { pool } from '../config/database.js';
+import "dotenv/config";
+import bcrypt from "bcrypt";
+import { pool } from "../config/database.js";
 
-export async function seedAdmin() {
+async function seedAdmin() {
+  const name = process.env.ADMIN_NAME?.trim() || "Administrator";
+  const email = process.env.ADMIN_EMAIL?.trim().toLowerCase();
+  const password = process.env.ADMIN_PASSWORD;
 
-  const adminEmail = 'admin@example.com';
-  const plainPassword = 'SuperSecureAdminPassword123!'; 
-  const adminRole = 'admin'; 
-
-  try {
-    console.log('🔄 Checking if admin already exists...');
-    
-    
-    const existingUser = await pool.query(
-      'SELECT 1 FROM users WHERE email = $1', 
-      [adminEmail]
-    );
-
-    if (existingUser.rows.length > 0) {
-      console.log('⚠️ Admin account already exists. Seeding skipped.');
-      return;
-    }
-
-    console.log('🔑 Hashing password...');
-    
-    const saltRounds = 10;
-    const hashedPassword = await bcrypt.hash(plainPassword, saltRounds);
-
-    console.log('🚀 Creating admin account...');
-    
-    const insertQuery = `
-      INSERT INTO users (email, password, role) 
-      VALUES ($1, $2, $3) 
-      RETURNING id, email, role
-    `;
-    
-    const result = await pool.query(insertQuery, [adminEmail, hashedPassword, adminRole]);
-    
-    console.log('✅ Admin account successfully created!');
-    console.log('Admin Details:', result.rows[0]);
-
-  } catch (error) {
-    console.error('❌ Error seeding admin account:', error);
-  } finally {
-   
-    await pool.end();
-    console.log('🔌 Database connection closed.');
+  if (!email || !password) {
+    throw new Error("Set ADMIN_EMAIL and ADMIN_PASSWORD before seeding.");
   }
+
+  const passwordHash = await bcrypt.hash(password, 12);
+  const { rows } = await pool.query(
+    `INSERT INTO users (name, role, email, password)
+     VALUES ($1, 'admin', $2, $3)
+     ON CONFLICT (email) DO NOTHING
+     RETURNING id, email`,
+    [name, email, passwordHash]
+  );
+
+  if (rows.length === 0) {
+    throw new Error(`An account already exists for ${email}; no changes were made.`);
+  }
+
+  console.log(`Admin account created for ${rows[0].email}.`);
 }
 
-
-seedAdmin();*/
+try {
+  await seedAdmin();
+} catch (error) {
+  console.error(error.message);
+  process.exitCode = 1;
+} finally {
+  await pool.end();
+}

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import axios from "../lib/api.js";
 
 // ─────────────────────────────────────────────
 // Helpers

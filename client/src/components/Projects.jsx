@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import axios from "axios";
+import axios from "../lib/api.js";
 
 // ─────────────────────────────────────────────
 // Fake previews — used when a project has no image

@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { apiFetch } from "../lib/api.js";
 
 
 const IGNORED = ["/health", "/favicon.ico", "/robots.txt", "/admin/"];
@@ -20,7 +21,7 @@ export default function TrackPageViews() {
 
     trackedRef.current.set(pathname, Date.now());
 
-    fetch("/api/track", {
+    apiFetch("/api/track", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ path: pathname, referrer: document.referrer }),

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
-import axios from "axios";
+import axios from "../../lib/api.js";
 import Loading from "./Loading";
 export default function ProtectedRoute() {
   const [status, setStatus] = useState("checking");

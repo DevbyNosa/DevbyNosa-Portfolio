@@ -21,7 +21,7 @@ app.use(
         scriptSrc: ["'self'"],              // no inline scripts
         styleSrc: ["'self'", "'unsafe-inline'"], // needed for some React/Tailwind setups
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
-        connectSrc: ["'self'", "https://api.example.com"], // if you call external APIs
+        connectSrc: ["'self'"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         objectSrc: ["'none'"],
         frameAncestors: ["'none'"],          // modern clickjacking protection
@@ -45,9 +45,19 @@ app.use(
   })
 );
 
+const allowedOrigins = (process.env.CLIENT_ORIGIN || "http://localhost:5173")
+  .split(",")
+  .map((origin) => origin.trim())
+  .filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN || "http://localhost:5173",
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+      return callback(new Error("Origin not allowed by CORS"));
+    },
     credentials: true,
   })
 );

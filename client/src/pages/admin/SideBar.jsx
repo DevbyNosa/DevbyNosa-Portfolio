@@ -13,7 +13,7 @@ import {
   X,
 } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios from "../../lib/api.js";
 
 const mainNav = [
   { label: "Overview", icon: LayoutDashboard, path: "/admin/dashboard" },

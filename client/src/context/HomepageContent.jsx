@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../lib/api.js";
 
 const fallback = {
   hero: { eyebrow: "HELLO, I'M IGBINOSA NOSAKHARE JUDGES.", title: "I build websites\n& web applications.", description: "Full-stack developer based in Nigeria, turning ideas into useful digital products with clean code and thoughtful interfaces.", primaryCta: "See my work", secondaryCta: "Let's work together", caption: "Full-stack developer\n& professional bug creator." },

@@ -12,7 +12,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import Sidebar from "./SideBar";
-import axios from "axios";
+import axios from "../../lib/api.js";
 
 // ─────────────────────────────────────────────
 // Status styles
