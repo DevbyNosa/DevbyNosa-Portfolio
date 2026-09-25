@@ -1,7 +1,9 @@
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import devbynosa from '../assets/devbynosa.jpg'
-export default function Hero() {
+
+export default function Hero({ content = {} }) {
+  const titleLines = (content.title || "I build websites\n& web applications.").split("\n");
   return (
     <section className="mx-auto my-[100px] grid w-[90%] max-w-[1200px] grid-cols-1 items-center gap-[60px] md:my-[100px] md:mb-[120px] md:grid-cols-[1.4fr_.6fr] md:gap-[80px]">
 
@@ -15,18 +17,15 @@ export default function Hero() {
         }}
       >
         <p className="font-sans text-[11px] font-semibold tracking-[1.8px] text-[#686868]">
-          HELLO, I'M IGBINOSA NOSAKHARE JUDGES.
+          {content.eyebrow || "HELLO, I'M IGBINOSA NOSAKHARE JUDGES."}
         </p>
 
         <h1 className="mt-5 max-w-[850px] font-['Space_Grotesk'] text-[52px] font-medium leading-[.98] tracking-[-3px] md:text-[clamp(50px,6.5vw,82px)] md:tracking-[-4px]">
-          I build websites
-          <br />
-          & web applications<span className="text-[#315bea]">.</span>
+          {titleLines.map((line, index) => <span key={line}>{line}{index < titleLines.length - 1 && <br />}</span>)}
         </h1>
 
         <p className="mt-[30px] max-w-[520px] font-sans text-[17px] leading-[1.7] text-[#686868]">
-          Full-stack developer based in Nigeria, turning ideas into useful
-          digital products with clean code and thoughtful interfaces.
+          {content.description || "Full-stack developer based in Nigeria, turning ideas into useful digital products with clean code and thoughtful interfaces."}
         </p>
 
         {/* Actions */}
@@ -39,7 +38,7 @@ export default function Hero() {
             whileTap={{ scale: 0.97 }}
             transition={{ duration: 0.2 }}
           >
-            See my work
+            {content.primaryCta || "See my work"}
             <ArrowDown size={15} strokeWidth={2} />
           </motion.a>
 
@@ -49,7 +48,7 @@ export default function Hero() {
             whileHover={{ x: 4 }}
             transition={{ duration: 0.2 }}
           >
-            Let's work together
+            {content.secondaryCta || "Let's work together"}
             <ArrowUpRight size={15} strokeWidth={2} />
           </motion.a>
 
@@ -91,9 +90,7 @@ export default function Hero() {
         </motion.div>
 
         <p className="mt-5 font-sans text-[12px] leading-[1.5] text-[#686868]">
-          Full-stack developer
-          <br />
-          & professional bug creator.
+          {(content.caption || "Full-stack developer\n& professional bug creator.").split("\n").map((line) => <span key={line}>{line}<br /></span>)}
         </p>
 
       </motion.div>

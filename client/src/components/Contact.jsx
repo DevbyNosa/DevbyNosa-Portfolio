@@ -4,7 +4,7 @@ import { useState } from "react";
 import { FaGithub, FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import axios from "axios";
 
-export default function Contact() {
+export default function Contact({ content = {} }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -79,16 +79,15 @@ export default function Contact() {
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <p className="font-sans text-[13px] font-semibold tracking-[1.8px] text-[#686868]">
-            06 — LET'S TALK
+            {content.eyebrow || "06 — LET'S TALK"}
           </p>
 
           <h2 className="mt-[10px] max-w-[500px] font-['Space_Grotesk'] text-[45px] font-medium leading-[1] tracking-[-2px] md:text-[50px]">
-            Let's build something good.
+            {content.title || "Let's build something good."}
           </h2>
 
           <p className="mt-[25px] max-w-[420px] text-[16px] leading-[1.8] text-[#686868]">
-            Have a project in mind, an idea you want to bring to life, or
-            just want to talk about building something?
+            {content.description || "Have a project in mind, an idea you want to bring to life, or just want to talk about building something?"}
           </p>
 
           <motion.a
@@ -98,7 +97,7 @@ export default function Contact() {
             transition={{ duration: 0.2 }}
           >
             <Mail size={19} strokeWidth={1.8} />
-            judgesnigbinosa@gmail.com
+            {content.email || "judgesnigbinosa@gmail.com"}
             <ArrowUpRight size={18} strokeWidth={1.8} />
           </motion.a>
 

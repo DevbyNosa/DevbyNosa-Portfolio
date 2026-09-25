@@ -32,6 +32,9 @@ export default async function AdminLogin(req, res) {
       );
     }
 
+    req.session.userId = user.id;
+    req.session.email = user.email;
+
     
     const { password: _, ...userData } = user;
     return res.status(200).json(

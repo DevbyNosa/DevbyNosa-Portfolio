@@ -8,7 +8,7 @@ export default function TechStrip() {
   ];
 
   return (
-    <div className="overflow-hidden border-y border-[#d8d7d2] py-5">
+    <div className="overflow-hidden border-y border-[#d8d7d2] py-5 w-100">
       <div className="flex w-max animate-marquee">
 
         <div className="flex shrink-0">

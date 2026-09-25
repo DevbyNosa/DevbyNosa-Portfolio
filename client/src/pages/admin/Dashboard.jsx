@@ -412,7 +412,7 @@ export default function AdminDashboard() {
 
       <main className="min-h-screen md:ml-[240px]">
         {/* Top bar */}
-        <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-[#252a2f] bg-[#0b0d0f]/95 px-6 backdrop-blur md:px-8">
+        <header className="sticky top-0 z-30 flex h-[72px] items-center justify-between border-b border-[#252a2f] bg-[#0b0d0f]/95 px-4 backdrop-blur sm:px-6 md:px-8">
           <div>
             <p className="text-[9px] font-semibold uppercase tracking-[1.7px] text-[#555c63]">
               Overview
@@ -430,7 +430,7 @@ export default function AdminDashboard() {
               </span>
             </div>
 
-            <div className="flex items-center gap-1 border border-[#252a2f] p-1">
+            <div className="flex shrink-0 items-center gap-1 border border-[#252a2f] p-1">
               {[7, 30, 90].map((d) => (
                 <button
                   key={d}
@@ -457,7 +457,7 @@ export default function AdminDashboard() {
                   Good afternoon, Nosa.
                 </p>
 
-                <h2 className="mt-1 max-w-[600px] font-['Space_Grotesk'] text-[30px] font-medium leading-tight tracking-[-1.5px] md:text-[38px]">
+                <h2 className="mt-1 max-w-[600px] font-['Space_Grotesk'] text-[28px] font-medium leading-tight tracking-[-1.5px] sm:text-[30px] md:text-[38px]">
                   Your portfolio is getting attention.
                 </h2>
               </div>

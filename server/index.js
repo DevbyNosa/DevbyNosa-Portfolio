@@ -1,5 +1,6 @@
 import express from "express";
 import "dotenv/config";
+import helmet from 'helmet'
 import cors from "cors";
 import { pool } from "./config/database.js";
 import { sessionConfig } from "./config/session.js";
@@ -11,6 +12,38 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.set("trust proxy", 1);
+
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'"],              // no inline scripts
+        styleSrc: ["'self'", "'unsafe-inline'"], // needed for some React/Tailwind setups
+        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+        connectSrc: ["'self'", "https://api.example.com"], // if you call external APIs
+        fontSrc: ["'self'", "https://fonts.gstatic.com"],
+        objectSrc: ["'none'"],
+        frameAncestors: ["'none'"],          // modern clickjacking protection
+        upgradeInsecureRequests: [],          
+      },
+    },
+    hsts: {
+      maxAge: 31536000,       // 1 year in seconds
+      includeSubDomains: true,
+      //preload: true,
+    },
+    referrerPolicy: { policy: "strict-origin-when-cross-origin" },
+    permissionsPolicy: {
+      features: {
+        geolocation: [],       
+        camera: [],
+        microphone: [],
+        payment: [],
+      },
+    },
+  })
+);
 
 app.use(
   cors({

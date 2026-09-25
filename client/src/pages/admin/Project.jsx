@@ -80,7 +80,7 @@ function ProjectForm({ initial, onCancel, onSaved }) {
     stack: Array.isArray(initial?.tags)
       ? initial.tags.join(", ")
       : initial?.stack ?? "",
-    status: initial?.status ?? "draft",
+    status: initial?.status ?? initial?.project_status ?? "draft",
     domain: initial?.link ?? initial?.domain ?? "",
     github: initial?.repo ?? initial?.github ?? "",
     image: initial?.image ?? "",
@@ -557,9 +557,9 @@ export default function AdminProjects() {
 
   const counts = {
     total: projects.length,
-    live: projects.filter((p) => (p.status || "").toLowerCase() === "live").length,
-    draft: projects.filter((p) => (p.status || "").toLowerCase() === "draft").length,
-    archived: projects.filter((p) => (p.status || "").toLowerCase() === "archived").length,
+    live: projects.filter((p) => (p.status ?? p.project_status ?? "draft").toLowerCase() === "live").length,
+    draft: projects.filter((p) => (p.status ?? p.project_status ?? "draft").toLowerCase() === "draft").length,
+    archived: projects.filter((p) => (p.status ?? p.project_status ?? "draft").toLowerCase() === "archived").length,
   };
 
   return (
@@ -671,7 +671,9 @@ export default function AdminProjects() {
                 </p>
                 <button
                   onClick={handleAdd}
-                  className="mt-4 flex items-center gap-2 bg-[#315bea] px-4 py-2.5 text-[9px] font-medium text-white hover:bg-[#3b63e7]"
+                  className="mt-4 flex items-center gap-2 bg-[#315bea] px-4 py-2.5 text-[9px] font-medium text-white hover:bg-[#3b63e7] cursor-pointer
+
+              "
                 >
                   <Plus size={12} />
                   Add your first project

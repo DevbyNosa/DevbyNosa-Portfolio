@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 // ─────────────────────────────────────────────
@@ -71,11 +72,11 @@ function PostRow({ post, index }) {
           {meta || formatDate(post.createdAt)}
         </span>
 
-        <ArrowUpRight
-          size={17}
-          strokeWidth={1.8}
-          className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
-        />
+
+       <Link to={`/writing/${post.slug}`}>
+        <ArrowUpRight size={17} strokeWidth={1.8} className="transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+      </Link>
+
       </div>
     </motion.article>
   );

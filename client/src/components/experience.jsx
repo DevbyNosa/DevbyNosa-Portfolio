@@ -15,7 +15,7 @@ const experienceVariants = {
   },
 };
 
-export default function WorkExperience() {
+export default function WorkExperience({ content = {} }) {
   return (
     <section
       id="experience"
@@ -34,17 +34,16 @@ export default function WorkExperience() {
       >
         <div>
           <p className="font-sans text-[13px] font-semibold tracking-[1.8px] text-[#686868]">
-            03 — WORK EXPERIENCE
+            {content.eyebrow || "03 — WORK EXPERIENCE"}
           </p>
 
           <h2 className="mt-[10px] max-w-[700px] font-['Space_Grotesk'] text-[45px] font-medium leading-[1] tracking-[-2px] md:text-[55px]">
-            What I've been working on.
+            {content.title || "What I've been working on."}
           </h2>
         </div>
 
         <p className="max-w-[340px] font-sans text-[16px] leading-[1.7] text-[#686868]">
-          Building real-world web applications, learning through projects,
-          and turning ideas into working products.
+          {content.description || "Building real-world web applications, learning through projects, and turning ideas into working products."}
         </p>
       </motion.div>
 

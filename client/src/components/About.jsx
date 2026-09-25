@@ -1,7 +1,8 @@
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 
-export default function About() {
+export default function About({ content = {} }) {
   return (
     <motion.section
       id="about"
@@ -17,34 +18,31 @@ export default function About() {
       {/* Label */}
       <div>
         <p className="font-sans text-[11px] font-semibold tracking-[1.8px] text-[#686868]">
-          02 — A LITTLE ABOUT ME
+          {content.eyebrow || "02 — A LITTLE ABOUT ME"}
         </p>
       </div>
 
       {/* Content */}
       <div>
         <h2 className="max-w-[700px] font-['Space_Grotesk'] text-[40px] leading-none tracking-[-3px] md:text-[clamp(40px,5vw,65px)]">
-          I enjoy building the{" "}
+          {content.title || "I enjoy building the"}{" "}
           <em className="not-italic text-[#315bea]">
-            complicated stuff.
+            {content.accent || "complicated stuff."}
           </em>
         </h2>
 
         <p className="my-[30px] max-w-[600px] font-sans leading-[1.8] text-[#686868]">
-          Give me a database, an API, authentication, payments and a problem
-          to solve and I'm happy. I'm interested in building products that are
-          actually useful — not just websites that look nice.
+          {content.body ||
+            "Give me a database, an API, authentication, payments and a problem to solve and I'm happy. I'm interested in building products that are actually useful - not just websites that look nice."}
         </p>
 
-        <motion.a
-          href="#"
-          className="inline-flex items-center gap-1 text-[13px] font-semibold"
-          whileHover={{ x: 5 }}
-          transition={{ duration: 0.2 }}
+        <Link
+          to="/about"
+          className="inline-flex items-center gap-1 text-[13px] font-semibold transition-colors hover:text-[#315bea]"
         >
-          More about me
+          {content.link || "More about me"}
           <ArrowRight size={15} strokeWidth={2} />
-        </motion.a>
+        </Link>
       </div>
     </motion.section>
   );

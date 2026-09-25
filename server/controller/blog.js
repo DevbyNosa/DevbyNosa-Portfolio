@@ -288,3 +288,44 @@ export async function publicBlogs(req, res) {
       .json(new ApiResponse(500, false, "Error fetching posts"));
   }
 }
+
+export async function publicBlogBySlug(req, res) {
+  try {
+    const { slug } = req.params;
+
+    const { rows } = await pool.query(
+      `SELECT * FROM blogs WHERE slug = $1 AND status = 'published'`,
+      [slug]
+    );
+
+    if (rows.length === 0) {
+      return res
+        .status(404)
+        .json(new ApiResponse(404, false, "Post not found"));
+    }
+
+    const post = {
+      id: rows[0].id,
+      title: rows[0].title,
+      slug: rows[0].slug,
+      excerpt: rows[0].excerpt,
+      content: rows[0].content,
+      tags: rows[0].tags || [],
+      status: rows[0].status,
+      readTime: rows[0].read_time,
+      cover: rows[0].cover,
+      views: rows[0].views,
+      createdAt: rows[0].created_at,
+      updatedAt: rows[0].updated_at,
+    };
+
+    return res
+      .status(200)
+      .json(new ApiResponse(200, true, "Post fetched", { post }));
+  } catch (error) {
+    console.error("[public blog] failed:", error);
+    return res
+      .status(500)
+      .json(new ApiResponse(500, false, "Error fetching post"));
+  }
+}

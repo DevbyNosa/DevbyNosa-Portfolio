@@ -40,6 +40,12 @@ CREATE TABLE projects (
   updated_at  TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+CREATE TABLE IF NOT EXISTS homepage_content (
+  section VARCHAR(80) PRIMARY KEY,
+  content JSONB NOT NULL DEFAULT '{}'::jsonb,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 ALTER TABLE projects ADD COLUMN stack TYPE TEXT USING array_to_string(stack, ', ');
 
 ALTER TABLE projects 

@@ -38,6 +38,10 @@ export default function Login() {
         navigate("/admin/dashboard", { replace: true });
       } else {
         setError(data.message || "Invalid credentials");
+
+        setTimeout(() => {
+        setError(""); 
+      }, 5000);
       }
     } catch (err) {
       console.error("[login] failed:", err);
@@ -46,6 +50,10 @@ export default function Login() {
           err.response?.data?.error ||
           "Something went wrong. Please try again."
       );
+
+       setTimeout(() => {
+      setError("");
+    }, 5000);
     } finally {
       setLoading(false);
     }

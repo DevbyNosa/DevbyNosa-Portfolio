@@ -8,20 +8,24 @@ import Projects from "../components/Projects";
 import Writing from "../components/Writing";
 import Contact from "../components/Contact";
 import Footer from "../components/Footer";
+import { useHomepageContent } from "../context/HomepageContent";
+import SEO from "../components/SEO";
 
 
 export default function Home() {
+   const content = useHomepageContent();
    return (
     <>
+      <SEO />
     <Navbar />
 
-    <Hero />
+   <Hero content={content.hero} />
     <TechStrip />
-    <About />
-    <WorkExperience />
+   <About content={content.about} />
+   <WorkExperience content={content.experience} />
     <Projects />
     <Writing />
-    <Contact />
+   <Contact content={content.contact} />
     <Footer />
     </>
     
