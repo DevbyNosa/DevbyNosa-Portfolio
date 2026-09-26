@@ -9,7 +9,7 @@ import {
   AlertCircle,
 } from "lucide-react";
 import axios from "../../lib/api.js";
-import Sidebar from "./SideBar";
+import Sidebar from "./SideBar.jsx";
 
 // ─────────────────────────────────────────────
 // Section wrapper
