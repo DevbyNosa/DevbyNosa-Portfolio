@@ -13,7 +13,7 @@ export const sessionConfig = session({
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
-  name: "sid",
+  name: "connect.sid",
   cookie: {
     httpOnly: true,
     sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",

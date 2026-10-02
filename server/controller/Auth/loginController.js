@@ -35,11 +35,19 @@ export default async function AdminLogin(req, res) {
     req.session.userId = user.id;
     req.session.email = user.email;
 
-    
     const { password: _, ...userData } = user;
-    return res.status(200).json(
-      new ApiResponse(200, true, "Login successful", { user: userData })
-    );
+    req.session.save((error) => {
+      if (error) {
+        console.error("Login session save failed:", error);
+        return res.status(500).json(
+          new ApiResponse(500, false, "Unable to create login session")
+        );
+      }
+
+      return res.status(200).json(
+        new ApiResponse(200, true, "Login successful", { user: userData })
+      );
+    });
 
   } catch (error) {
     console.error("Login Error:", error);

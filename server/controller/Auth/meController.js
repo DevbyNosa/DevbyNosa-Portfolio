@@ -3,7 +3,12 @@ import { ApiResponse } from "../../utils/ApiResponse.js";
 
 export default async function me(req, res) {
   try {
-   
+    if (!req.session?.userId) {
+      return res.status(401).json(
+        new ApiResponse(401, false, "Not authenticated")
+      );
+    }
+
     const { rows } = await pool.query(
       `SELECT id, email, name FROM users WHERE id = $1`,
       [req.session.userId]

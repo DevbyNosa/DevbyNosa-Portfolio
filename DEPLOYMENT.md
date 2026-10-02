@@ -1,6 +1,6 @@
 # Deployment
 
-The frontend is deployed to Vercel and the Express API to Render. Production frontend requests use the backend origin from the `VITE_API_URL` build environment variable. Local development leaves that variable empty and uses Vite's `/api` proxy to `http://localhost:3000`.
+The frontend is deployed to Vercel and the Express API to Render. Production frontend requests use Vercel's same-origin `/api` rewrite to reach the Render API, keeping admin session cookies first-party in the browser. Local development leaves `VITE_API_URL` empty and uses Vite's `/api` proxy to `http://localhost:3000`.
 
 ## Deploy the API
 
@@ -16,7 +16,7 @@ Render generates `SESSION_SECRET` and `HASH_SALT`. Keep the generated secrets pr
 
 Import the repository into Vercel and deploy from the repository root. `vercel.json` installs and builds `client`, publishes `client/dist`, and sends frontend routes to the React app. The production origin is set in `client/.env.production` as `VITE_API_URL=https://devbynosa.onrender.com`. If Render gives the service a different hostname, change that value or override `VITE_API_URL` in Vercel's Production environment. Add it to Preview only if you also add that preview deployment's exact origin to Render's `CLIENT_ORIGIN`.
 
-The frontend's shared API client uses this origin for both Axios and `fetch` requests, and sends credentials for admin sessions. The API accepts only origins listed in Render's `CLIENT_ORIGIN`. Production session cookies use `SameSite=None; Secure` because the default Vercel and Render hostnames are cross-site. For the most reliable admin sessions across browsers that restrict third-party cookies, use a custom frontend domain and an API subdomain under the same registrable domain, then set `VITE_API_URL` and `CLIENT_ORIGIN` to those origins.
+The frontend's shared API client uses relative `/api` requests in production. Vercel proxies them to `https://devbynosa.onrender.com`; keep `CLIENT_ORIGIN` set to the exact deployed Vercel origin because the API validates it. `VITE_API_URL` is used only outside production. Production session cookies use the `connect.sid` name.
 
 ## Create the first admin
 

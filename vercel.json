@@ -4,6 +4,10 @@
   "installCommand": "npm install --prefix client",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://devbynosa.onrender.com/api/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
