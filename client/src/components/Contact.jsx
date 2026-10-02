@@ -27,7 +27,7 @@ export default function Contact({ content = {} }) {
     setFeedback("");
 
     try {
-      const res = await axios.post("/api/admin/messages", {
+      const res = await axios.post("/api/messages", {
         name,
         email,
         message,
