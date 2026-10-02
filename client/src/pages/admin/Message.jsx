@@ -238,7 +238,7 @@ export default function Messages() {
 
     async function load() {
       try {
-        const res = await axios.get("/api/admin/messages");
+        const res = await axios.get("/api/messages");
         const list = res.data?.data?.messages ?? res.data?.messages ?? [];
         if (!cancelled) setMessages(list);
       } catch (err) {
