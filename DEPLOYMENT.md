@@ -16,7 +16,7 @@ Render generates `SESSION_SECRET` and `HASH_SALT`. Keep the generated secrets pr
 
 Import the repository into Vercel and deploy from the repository root. `vercel.json` installs and builds `client`, publishes `client/dist`, and sends frontend routes to the React app. The production origin is set in `client/.env.production` as `VITE_API_URL=https://devbynosa.onrender.com`. If Render gives the service a different hostname, change that value or override `VITE_API_URL` in Vercel's Production environment. Add it to Preview only if you also add that preview deployment's exact origin to Render's `CLIENT_ORIGIN`.
 
-The frontend's shared API client uses relative `/api` requests in production. Vercel proxies them to `https://devbynosa.onrender.com`; keep `CLIENT_ORIGIN` set to the exact deployed Vercel origin because the API validates it. `VITE_API_URL` is used only outside production. Production session cookies use the `connect.sid` name.
+The frontend's shared API client uses relative `/api` requests in production. Vercel proxies them to `https://devbynosa.onrender.com`; keep `CLIENT_ORIGIN` set to the exact deployed Vercel origin because the API validates it. `VITE_API_URL` is used only outside production.
 
 ## Create the first admin
 

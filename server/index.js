@@ -19,7 +19,7 @@ app.use(
       directives: {
         defaultSrc: ["'self'"],
         scriptSrc: ["'self'"],              // no inline scripts
-        styleSrc: ["'self'", "'unsafe-inline'"], // needed for some React/Tailwind setups
+        styleSrc: ["'self'", "'unsafe-inline'"], // React/Tailwind setups
         imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
         connectSrc: ["'self'"],
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
@@ -61,10 +61,21 @@ app.use(
     credentials: true,
   })
 );
+
+app.use((req, res, next) => {
+  res.setHeader("X-Robots-Tag", "noindex, nofollow, noarchive, nosnippet");
+  next();
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(sessionConfig);
 app.use(cookieParser());
+
+app.get("/robots.txt", (req, res) => {
+  res.type("text/plain");
+  res.send("User-agent: *\nDisallow: /");
+});
 
 // Health check
 app.get("/health", (req, res) => {
